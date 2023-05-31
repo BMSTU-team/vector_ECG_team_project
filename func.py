@@ -1,3 +1,12 @@
+def rename_columns(df):
+    # Приводит к правильному виду данные в df:
+    new_columns = []
+    for column in df.columns:
+        new_columns.append(column[:-4])
+    df.columns = new_columns
+    return df
+
+
 def function(file="Data VECG\PatientA__Exam_1_0.edf", n_term=3, filt=False, f_sreza=0.5):
     import mne
     import pandas as pd
@@ -17,11 +26,14 @@ def function(file="Data VECG\PatientA__Exam_1_0.edf", n_term=3, filt=False, f_sr
     df = pd.DataFrame(data=raw_data.T,    # values
                 index=range(raw_data.shape[1]),    # 1st column as index
                 columns=channels)  # 1st row as the column names
+    if 'ECG I-Ref' in df.columns:
+        df = rename_columns(df)
     Ts = 1/fd
     t = []
     for i in range(raw_data.shape[1]):
         t.append(i*Ts)
 
+    channels = df.columns
     model = CatBoostClassifier()      # parameters not required.
     model.load_model('boosting_model_ECG.cbm')
     sig = np.array(df['ECG I'])
@@ -52,7 +64,6 @@ def function(file="Data VECG\PatientA__Exam_1_0.edf", n_term=3, filt=False, f_sr
         m = int(middles[i])
         if temp_sig[m] > h:
             true_peaks.append(i)
-
 
     middles = np.asarray(middles)
     coordinates = middles[true_peaks].astype(np.int64)
@@ -234,11 +245,14 @@ def vECG(file="Data VECG\PatientA__Exam_1_0.edf", n_term=3, filt=False, f_sreza=
     df = pd.DataFrame(data=raw_data.T,    # values
                 index=range(raw_data.shape[1]),    # 1st column as index
                 columns=channels)  # 1st row as the column names
+    if 'ECG I-Ref' in df.columns:
+        df = rename_columns(df)
     Ts = 1/fd
     t = []
     for i in range(raw_data.shape[1]):
         t.append(i*Ts)
 
+    channels = df.columns
     model = CatBoostClassifier()      # parameters not required.
     model.load_model('boosting_model_ECG.cbm')
     sig = np.array(df['ECG I'])

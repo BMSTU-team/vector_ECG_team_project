@@ -42,7 +42,7 @@ vECG(file="Data VECG\PatientA__Exam_1_0.edf", n_term=3, filt=True, f_sreza=0.5)
  > Важные файлы проекта представлены в формате jupiter notebook: 
  > 1) [Обучение детектора пиков](https://nbviewer.org/github/BMSTU-team/vector_ECG/blob/main/ECG_classification.ipynb)
  > 2) [Реализация вЭКГ вычисления и результаты обработки реальных экспериментов](https://nbviewer.org/github/BMSTU-team/vector_ECG/blob/main/VectorECG.ipynb)
- > 3) [Обработка сигналов и подсчет информативных характеристик вЭКГ](https://nbviewer.org/github/BMSTU-team/vector_ECG/blob/main/ECG_recording%2BVectorECG_with_analysis.ipynb)
+ > 3) [Обработка сигналов и подсчет информативных характеристик вЭКГ](https://github.com/BMSTU-team/vector_ECG/blob/main/ECG_recording%2BVectorECG_with_analysis.ipynb)
 
 
 
